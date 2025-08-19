@@ -32,6 +32,14 @@ const systemInfoSchema = new mongoose.Schema({
 });
 const SystemInfo = mongoose.model('SystemInfo', systemInfoSchema);
 
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "System Utility API is running", 
+    timestamp: new Date().toISOString(),
+    status: "OK"
+  });
+});
+
 app.post("/api/system-info", async (req, res) => {
   try {
     const newEntry = new SystemInfo({
@@ -80,6 +88,7 @@ app.get("/api/system-info/history", async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve historical data" });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
