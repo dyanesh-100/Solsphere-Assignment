@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1 className="title">📊 System Reports Dashboard</h1>
+      <h1 className="title">System Reports Dashboard</h1>
 
       <div className="tabs">
         <button
@@ -49,7 +49,6 @@ export default function App() {
       </div>
 
       <div className="content">
-        {/* Latest Tab */}
         {tab === "latest" && (
           <div>
             {loading && !latest ? (
@@ -59,11 +58,15 @@ export default function App() {
                 <div className="card">
                   <h2>Latest Report</h2>
                   <div className="grid">
+                    <StatCard label="Machine ID" value={`${latest.machine_id}%`} />
+                    <StatCard label="OS" value={`${latest.os} ${latest.os_version}`} />
+                    <StatCard label="Disk Encryption" value={latest.disk_encryption ? "Enabled" : "Disabled"}/>
+                    <StatCard label="OS Update" value={latest.os_update} />
+                    <StatCard label="Antivirus" value={latest.antivirus ? "Enabled" : "Disabled"}/>
+                    <StatCard label="Sleep Settings" value={latest.sleep_setting_ok ? "Enabled" : "Disabled"}/>
                     <StatCard label="CPU Usage" value={`${latest.system_stats.cpu_percent}%`} />
                     <StatCard label="Memory Usage" value={`${latest.system_stats.memory_percent}%`} />
                     <StatCard label="Disk Usage" value={`${latest.system_stats.disk_percent}%`} />
-                    <StatCard label="OS" value={`${latest.os} ${latest.os_version}`} />
-                    <StatCard label="Update" value={latest.os_update} />
                     <StatCard
                       label="Last Checked"
                       value={new Date(latest.last_check).toLocaleString()}
@@ -75,7 +78,6 @@ export default function App() {
           </div>
         )}
 
-        {/* History Tab */}
         {tab === "history" && (
           <div>
             {loading && history.length === 0 ? (
@@ -86,10 +88,14 @@ export default function App() {
                 <div className="report-list">
                   {history.map((report, idx) => (
                     <div key={idx} className="report-item">
-                      <p><strong>CPU:</strong> {report.system_stats.cpu_percent}%</p>
-                      <p><strong>Memory:</strong> {report.system_stats.memory_percent}%</p>
-                      <p><strong>Disk:</strong> {report.system_stats.disk_percent}%</p>
-                      <p><strong>OS:</strong> {report.os} {report.os_version}</p>
+                      <p><strong>Machine Id:</strong> {report.machine_id}</p>
+                      <p><strong>OS:</strong> {report.os} {report.os_version} (Release {report.os_release})</p>
+                      <p><strong>CPU Usage:</strong> {report.system_stats.cpu_percent}%</p>
+                      <p><strong>Memory Usage:</strong> {report.system_stats.memory_percent}%</p>
+                      <p><strong>Disk Usage:</strong> {report.system_stats.disk_percent}%</p>
+                      <p><strong>Disk Encryption:</strong> {report.disk_encryption ? "Enabled" : "Disabled"}</p>
+                      <p><strong>Antivirus:</strong> {report.antivirus ? "Enabled" : "Disabled"}</p>
+                      <p><strong>Sleep Settings:</strong> {report.sleep_setting_ok ? "Enabled" : "Disabled"}</p>
                       <p><strong>Update:</strong> {report.os_update}</p>
                       <p><strong>Last Checked:</strong> {new Date(report.last_check).toLocaleString()}</p>
                     </div>
