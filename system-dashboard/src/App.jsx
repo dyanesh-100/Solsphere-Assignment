@@ -28,6 +28,16 @@ export default function App() {
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, []);
+  function StatCard({ label, value, showFlag }) {
+    return (
+      <div className={`stat-card ${showFlag ? "flagged" : ""}`}>
+        <p className="label">{label}</p>
+        <p className="value">
+          {value} {showFlag && <span className="flag">🚩</span>}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="app">
@@ -60,9 +70,9 @@ export default function App() {
                   <div className="grid">
                     <StatCard label="Machine ID" value={`${latest.machine_id}%`} />
                     <StatCard label="OS" value={`${latest.os} ${latest.os_version}`} />
-                    <StatCard label="Disk Encryption" value={latest.disk_encryption ? "Enabled" : "Disabled"}/>
+                    <StatCard label="Disk Encryption" value={latest.disk_encryption ? "Enabled" : "Disabled"} showFlag={!latest.disk_encryption}/>
                     <StatCard label="OS Update" value={latest.os_update} />
-                    <StatCard label="Antivirus" value={latest.antivirus ? "Enabled" : "Disabled"}/>
+                    <StatCard label="Antivirus" value={latest.antivirus ? "Enabled" : "Disabled"} showFlag={!latest.antivirus}/>
                     <StatCard label="Sleep Settings" value={latest.sleep_setting_ok ? "Enabled" : "Disabled"}/>
                     <StatCard label="CPU Usage" value={`${latest.system_stats.cpu_percent}%`} />
                     <StatCard label="Memory Usage" value={`${latest.system_stats.memory_percent}%`} />
@@ -93,8 +103,8 @@ export default function App() {
                       <p><strong>CPU Usage:</strong> {report.system_stats.cpu_percent}%</p>
                       <p><strong>Memory Usage:</strong> {report.system_stats.memory_percent}%</p>
                       <p><strong>Disk Usage:</strong> {report.system_stats.disk_percent}%</p>
-                      <p><strong>Disk Encryption:</strong> {report.disk_encryption ? "Enabled" : "Disabled"}</p>
-                      <p><strong>Antivirus:</strong> {report.antivirus ? "Enabled" : "Disabled"}</p>
+                      <p><strong>Disk Encryption:</strong> {report.disk_encryption ? "Enabled" : "Disabled"} {!report.disk_encryption && <span className="flag"> 🚩</span>}</p>
+                      <p><strong>Antivirus:</strong> {report.antivirus ? "Enabled" : "Disabled"} {!report.antivirus && <span className="flag"> 🚩</span>}</p>
                       <p><strong>Sleep Settings:</strong> {report.sleep_setting_ok ? "Enabled" : "Disabled"}</p>
                       <p><strong>Update:</strong> {report.os_update}</p>
                       <p><strong>Last Checked:</strong> {new Date(report.last_check).toLocaleString()}</p>

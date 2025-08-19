@@ -166,7 +166,7 @@ def send_report(report):
         print(f"[ERROR] Failed to send report: {e}")
 
 def main():
-    print("🚀 System Utility started. Checking every", CHECK_INTERVAL, "seconds...")
+    print("System Utility started. Checking every", CHECK_INTERVAL, "seconds...")
     last_report = None
 
     while True:
