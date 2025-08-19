@@ -11,8 +11,8 @@ export default function App() {
     try {
       setLoading(true);
       const [latestRes, historyRes] = await Promise.all([
-        fetch("http://localhost:5000/api/system-info/latest").then((r) => r.json()),
-        fetch("http://localhost:5000/api/system-info/history").then((r) => r.json()),
+        fetch("https://solsphere-assignment-backend.vercel.app/api/system-info/latest").then((r) => r.json()),
+        fetch("https://solsphere-assignment-backend.vercel.app/api/system-info/history").then((r) => r.json()),
       ]);
       setLatest(latestRes);
       setHistory(historyRes);

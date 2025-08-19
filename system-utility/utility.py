@@ -9,7 +9,7 @@ import time
 import requests
 import comtypes.client
 
-API_URL = "http://localhost:5000/api/system-info"   
+API_URL = "https://solsphere-assignment-backend.vercel.app/api/system-info"   
 CHECK_INTERVAL = 30  
 
 def get_machine_id():
